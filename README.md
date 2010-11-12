@@ -19,6 +19,7 @@ to socket programming and look a bit frightening for uninitiated.
 This library wraps ZeroMQ/ZMQMachine with interfaces that are very similar to the ones
 offered by [tmm1/amqp](http://github.com/tmm1/amqp). That way, you'll be able to leverage
 your existing code developed for AMQP, getting additional benefits such as:
+
  * Performance boost (3-10 times for most common messaging tasks)
  * No broker-related bottleneck for high-throughput applications
  * Ability to flexibly extend your messaging architecture
