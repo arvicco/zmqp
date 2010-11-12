@@ -6,9 +6,9 @@ $:.unshift lib unless $:.include?(lib)
 
 Gem::Specification.new do |gem|
   gem.name        = "zmqp"
-  gem.version     = File.open('VERSION').read.strip # = ::Zmqp::VERSION # - conflicts with Bundler
-  gem.summary     = "FIXME: New project zmqp"
-  gem.description = "FIXME: New project zmqp"
+  gem.version     = File.open('VERSION').read.strip
+  gem.summary     = "Alternative for AMQP library based on ZMQ/ZmqMachine."
+  gem.description = "Drop-in replacement for async AMQP library based on ZMQ/ZmqMachine."
   gem.authors     = ["arvicco"]
   gem.email       = "arvitallian@gmail.com"
   gem.homepage    = "http://github.com/arvicco/zmqp"
@@ -31,9 +31,7 @@ Gem::Specification.new do |gem|
   # Dependencies
   gem.add_development_dependency("rspec", [">= 2.0.0"])
   gem.add_development_dependency("cucumber", [">= 0"])
-  gem.add_dependency("bundler", [">= 1.2.9"])
+  gem.add_dependency("bundler", [">= 1.0.0"])
+  gem.add_dependency("zmqmachine", [">= 0.3.2"])
 
-  # gem.rubyforge_project = ""
-  # gem.rubygems_version  = `gem -v` # - Seems to conflict with Bundler
-  # gem.required_rubygems_version = ">= 1.3.6"
 end

@@ -1,9 +1,9 @@
 require 'version'
 
-module Zmqp
+module ZMQP
 
   require "bundler/setup"
-#  Bundler.require :group
+  Bundler.require :default
 
   # Requires ruby source file(s). Accepts either single filename/glob or Array of filenames/globs.
   # Accepts following options:
@@ -17,9 +17,9 @@ module Zmqp
       Pathname.glob(name.to_s).sort.each {|rb| require rb}
     end
   end
-end  # module Zmqp
+end  # module ZMQP
 
 # Require all ruby source files located under directory lib/zmqp
 # If you need files in specific order, you should specify it here before the glob
-Zmqp.require_libs %W[**/*]
+ZMQP.require_libs %W[**/*]
 
