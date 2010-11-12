@@ -1,11 +1,8 @@
-= zmqp
 by: Arvicco
 url: http://github.com/arvicco/zmqp
 
-== DESCRIPTION:
-
-What ZMQP gem is
-================
+Description
+===========
 
 [Asynchronous AMQP library](http://github.com/tmm1/amqp) sets a standard for messaging.
 It is well documented and has clean and simple interfaces for most common messaging tasks.
