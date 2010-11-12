@@ -7,8 +7,8 @@ $:.unshift lib unless $:.include?(lib)
 Gem::Specification.new do |gem|
   gem.name        = "zmqp"
   gem.version     = File.open('VERSION').read.strip
-  gem.summary     = "Alternative for AMQP library based on ZMQ/ZmqMachine."
-  gem.description = "Drop-in replacement for async AMQP library based on ZMQ/ZmqMachine."
+  gem.summary     = "Alternative for AMQP library based on ZMQ/ZmqMachine (pre-alpha!). "
+  gem.description = "Drop-in replacement for async AMQP library based on ZMQ/ZmqMachine (pre-alpha!)."
   gem.authors     = ["arvicco"]
   gem.email       = "arvitallian@gmail.com"
   gem.homepage    = "http://github.com/arvicco/zmqp"
@@ -26,7 +26,7 @@ Gem::Specification.new do |gem|
   # RDoc setup
   gem.has_rdoc = true
   gem.rdoc_options.concat %W{--charset UTF-8 --main README.rdoc --title zmqp}
-  gem.extra_rdoc_files = ["LICENSE", "HISTORY", "README.rdoc"]
+  gem.extra_rdoc_files = ["LICENSE", "HISTORY", "README.md"]
     
   # Dependencies
   gem.add_development_dependency("rspec", [">= 2.0.0"])
