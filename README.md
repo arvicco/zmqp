@@ -10,19 +10,26 @@ However, it implements AMQP standard that has some serious
 [problems and limitation](http://www.imatix.com/articles:whats-wrong-with-amqp).
 
 [ZeroMQ](http://www.zeromq.org) offers a viable alternative to AMQP, as well as 3-10 times
-performance boost for most common messaging tasks. However, its interfaces are a very similar
-to socket programming and look a bit frightening for uninitiated.
+performance boost for most common messaging tasks. However, its interfaces are very similar
+to socket programming and look a bit frightening for the uninitiated.
 
-This library wraps ZeroMQ/ZMQMachine with interfaces that are very similar to the ones
+This library wraps ZeroMQ/ZMQMachine with familiar interfaces that are equivalent to the ones
 offered by [tmm1/amqp](http://github.com/tmm1/amqp). That way, you'll be able to leverage
 your existing code developed for AMQP, getting additional benefits such as:
 
  * Performance boost (3-10 times for most common messaging tasks)
- * No broker-related bottleneck for high-throughput applications
+ * No broker-related bottlenecks for high-throughput applications
  * Ability to flexibly extend your messaging architecture
  * No external dependency on 3rd-party broker software (such as RabbitMQ)
 
-Because ZMQis inherently threaded, it does not make sense to use this library with
+Some library highlights/design choices:
+
+ * ZMQP::Client/Connection is actually a connection to a lightweight service registry
+ * All Exchanges are based on ZMQ sockets/devices
+ * Queues can be omitted when binding to Exchanges, but if they are not omitted, they are based on ZMQ::Queue device
+ * Socket complexity is mostly hidden from code by sane defaults, but more granular control is possible through options
+
+Because ZMQ is inherently threaded, it does not make sense to use this library with
 anything less than MRI 1.9.2, JRuby or Rubinius. MRI 1.9.1 may or may not work, MRI 1.8.7
 and its below are broken beyond repair (as far as threading goes).
 
@@ -72,5 +79,6 @@ Resources
 
  * Joe Armstrong on [Erlang messaging vs RPC](http://armstrongonsoftware.blogspot.com/2008/05/road-we-didnt-go-down.html)
 
-== LICENSE:
+License
+=======
 Copyright (c) 2010 Arvicco. See LICENSE for details.

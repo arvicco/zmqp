@@ -1,7 +1,26 @@
 require 'spec_helper'
 
-#require 'amqp-spec/rspec'
-#require 'amqp'
+if defined? ZMQP
+  DEFAULT_SETTINGS = {:host=>"127.0.0.1",
+                      :port=>5673, # AMQP: 5672
+                      :user=>"guest",
+                      :pass=>"guest",
+                      :vhost=>"/",
+                      :timeout=>nil,
+                      :logging=>false,
+                      :ssl=>false}
+else
+  require 'amqp-spec/rspec'
+  require 'amqp'
+  DEFAULT_SETTINGS = {:host=>"127.0.0.1",
+                      :port=> 5672,
+                      :user=>"guest",
+                      :pass=>"guest",
+                      :vhost=>"/",
+                      :timeout=>nil,
+                      :logging=>false,
+                      :ssl=>false}
+end
 
 module MockClientModule
   def my_mock_method
@@ -21,16 +40,8 @@ describe AMQP, 'as a class' do
     its(:connection) { should be_nil }
     its(:conn) { should be_nil } # Alias for #connection
     its(:closing) { should be_false }
-    its(:settings) { should == {:host=>"127.0.0.1",
-                                :port=>5672,
-                                :user=>"guest",
-                                :pass=>"guest",
-                                :vhost=>"/",
-                                :timeout=>nil,
-                                :logging=>false,
-                                :ssl=>false} }
+    its(:settings) { should == DEFAULT_SETTINGS}
     its(:client) { should == AMQP::BasicClient }
-
   end
 
   describe '.client=' do
@@ -66,12 +77,12 @@ describe AMQP, 'as a class' do
       AMQP.connect "args"
     end
 
-    it 'raises error unless called inside EM event loop' do
+    it 'raises error unless called with running reactor' do
       expect { AMQP.connect {} }.to raise_error RuntimeError, /eventmachine not initialized/
     end
 
     context 'when called inside EM event loop, it either' do
-#      include AMQP::EMSpec
+      include AMQP::EMSpec unless defined? ZMQP
 
       it 'raises connection error (with wrong AMQP opts), or' do
         expect { @conn = AMQP.connect(host: 'wrong') }.
@@ -106,7 +117,7 @@ describe AMQP, 'as a class' do
     end
 
     context 'inside EM loop' do
-#      include AMQP::EMSpec
+      include AMQP::EMSpec unless defined? ZMQP
       after { AMQP.cleanup_state; done }
 
       it 'raises connection error (with wrong AMQP opts)' do
@@ -139,9 +150,10 @@ describe AMQP, 'as a class' do
     end
 
     context 'with established AMQP connection' do
-#      include AMQP::Spec
+      include AMQP::Spec unless defined? ZMQP
+      default_options AMQP_OPTS unless defined? ZMQP
+
       after { AMQP.cleanup_state; done }
-#      default_options AMQP_OPTS
 
       it 'closes existing connection' do
         AMQP.connection.should_receive(:close).with(no_args)
